@@ -22,20 +22,17 @@ public class MainActivity extends Activity {
                 .setRemindInterval(2) // default 1 day.
                 .setShowLaterButton(true) // default true.
                 .setDebug(true) // default false.
-                .setCancelable(false) // default false.
+                .setCancelable(false) // default falsee
                 .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
                     @Override
                     public void onClickButton(int which) {
                         Log.d(MainActivity.class.getName(), Integer.toString(which));
                     }
-                })
-                .setTitle(R.string.new_rate_dialog_title)
-                .setTextLater(R.string.new_rate_dialog_later)
-                .setTextNever(R.string.new_rate_dialog_never)
-                .setTextRateNow(R.string.new_rate_dialog_ok)
-                .monitor();
+                }).setCurrentLanguage("bn");
+
 
         AppRate.showRateDialogIfMeetsConditions(this);
+
     }
 
 }

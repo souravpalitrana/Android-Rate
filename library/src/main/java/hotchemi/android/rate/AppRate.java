@@ -2,9 +2,11 @@ package hotchemi.android.rate;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 
 import java.util.Date;
+import java.util.Locale;
 
 import static hotchemi.android.rate.DialogManager.create;
 import static hotchemi.android.rate.PreferenceHelper.getInstallDate;
@@ -30,6 +32,8 @@ public final class AppRate {
 
     private boolean isDebug = false;
 
+    private static String currentLanguage;
+
     private AppRate(Context context) {
         this.context = context.getApplicationContext();
     }
@@ -39,6 +43,7 @@ public final class AppRate {
             synchronized (AppRate.class) {
                 if (singleton == null) {
                     singleton = new AppRate(context);
+                    currentLanguage = Locale.getDefault().getLanguage();
                 }
             }
         }
@@ -212,6 +217,22 @@ public final class AppRate {
     public AppRate setDebug(boolean isDebug) {
         this.isDebug = isDebug;
         return this;
+    }
+
+    public void setLocale(Locale locale) {
+        Configuration mConfiguration = context.getResources().getConfiguration();
+        mConfiguration.locale = locale;
+        context.getResources().updateConfiguration(mConfiguration, null);
+    }
+
+    public void setCurrentLanguage(String language){
+        currentLanguage = language;
+        Locale mLocale = new Locale(language);
+        setLocale(mLocale);
+    }
+
+    public String getCurrentLanguage() {
+        return currentLanguage;
     }
 
 }
